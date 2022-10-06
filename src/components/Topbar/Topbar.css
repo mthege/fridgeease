@@ -1,0 +1,13 @@
+.topbar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+img{
+    height: 8rem; 
+}
