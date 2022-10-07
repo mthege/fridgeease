@@ -23,6 +23,6 @@
      
       
   }
-  .nav-link:active{
+  .active{
     background-color: rgba(160, 196, 255, 1);
   }
