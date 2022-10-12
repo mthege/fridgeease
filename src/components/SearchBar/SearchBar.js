@@ -1,30 +1,66 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {FaSearch} from 'react-icons/fa'; 
 // import {useNavigate} from 'react-router-dom';
 // import {BsPlusLg} from 'react-icons/bs'
 // import {GrClose} from 'react-icons/gr'
+import {FaCarrot} from 'react-icons/fa'
+
 import './SearchBar.css';
 
+ 
   function SearchBar() {
     const [input, setInput] = useState(""); 
+    const [ingredients, setIngredients] = useState([]); 
+
+    useEffect(() => {
+      const fetchData = async () => {
+        console.log(`https://api.spoonacular.com/food/ingredients/search?apiKey=${process.env.REACT_APP_API_KEY}&query=${input}/information?amount=1 `)
+        const data  = await fetch(
+         `https://api.spoonacular.com/food/ingredients/search?apiKey=${process.env.REACT_APP_API_KEY}&query=${input} `);  
+        const r = await data.json() 
+        setIngredients(r.results);
+        console.log("Got some ingredients " + JSON.stringify(r));
+      }
+      try {
+        fetchData()
+      } catch(err) {
+        console.error(err);
+      }
+      
+    }, [input])
+    
     // const navigate = useNavigate(); 
     const submitHandler = (e) => {
-        e.preventDefault(); 
-        // navigate('/searched/' + input)
+        e.preventDefault();
+        //navigate('/searched/' + input)
     }
 
+    
+      return (
+        <div className="searchbar">
+          <form className="search" onSubmit={submitHandler}>
+          <input prefix={<FaSearch/>} 
+          placeholder="Lägg till matvara" 
+          className="search-input" 
+          onChange={(e) => setInput(e.target.value)} 
+          type="text" value={input}/>
+          </form>
+          <p>{ingredients?.length}</p><br/>
+          
+         
 
-  return (
-    <div className="searchbar">
-      <form className="search" onSubmit={submitHandler}>
-        <input prefix={<FaSearch/>} 
-        placeholder="Lägg till matvara" 
-        className="search-input" 
-        onChange={(e) => setInput(e.target.value)} 
-        type="text" value={input}/>
-      </form>
+<div className="search-boxes">
+          {ingredients?.map((item) => {
+            return(
+              <div key={item.id} className="search-squares">
+                <FaCarrot size={30}/>
+              <div className="search-square">{item.name}</div>
+          </div>            
+          )
+          
+    })}
     </div>
-)
+    </div>) 
 
 }
 

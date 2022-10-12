@@ -2,10 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
 }
 .search {
-  width: 75vw; 
+    width: 75vw; 
     border: 2px solid #000;
     border-radius: 2em;
     overflow: hidden;
@@ -23,6 +24,34 @@
     font-family: 'Cabin', sans-serif;
 
   }
+
+  .search-boxes{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+  }
+  .search-squares{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 20%;
+    height: 3.5rem; 
+    background-color: white;
+    border-radius: 1.2rem;
+    margin: 0.2rem; 
+    padding: 0.5rem;
+  }
+
+  .search-square{
+    text-align: center;
+    font-family: 'Cabin', sans-serif;
+  }
   
+  img{
+    width: 100%;
+  }
   
   

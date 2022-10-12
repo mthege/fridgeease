@@ -1,0 +1,60 @@
+.login{
+    font-family: 'Cabin', sans-serif;
+}
+.login-form{
+    top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.input {
+    width: 75vw; 
+    border: 2px solid #000;
+    border-radius: 2em;
+    overflow: hidden;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row nowrap;
+    margin: 10px;
+    padding: 10px;
+}
+
+.login-h1{
+    text-align: center;
+    margin: 1.2rem;
+}
+.login-label{
+    font-size: 1.5rem;
+    margin-left: 1.2rem; 
+}
+
+.login-button{
+    width: 80vw;
+    font-size: 1.2rem;
+    border-radius: 2em;
+    padding: 10px;
+    margin: 1.5rem; 
+    background-color: white;
+}
+
+.blimedlem{
+
+    width: 75vw; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; }
+
+    .blimedlem span{
+        background:rgba(160, 196, 255, 1); 
+        padding:0 10px;  
+    }
+
+    .login-logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1.2rem;
+    }
