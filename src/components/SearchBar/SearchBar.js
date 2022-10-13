@@ -3,7 +3,8 @@ import {FaSearch} from 'react-icons/fa';
 // import {useNavigate} from 'react-router-dom';
 // import {BsPlusLg} from 'react-icons/bs'
 // import {GrClose} from 'react-icons/gr'
-import {FaCarrot} from 'react-icons/fa'
+// import {FaCarrot} from 'react-icons/fa'
+import Ingredient from '../Ingredient';
 
 import './SearchBar.css';
 
@@ -14,9 +15,9 @@ import './SearchBar.css';
 
     useEffect(() => {
       const fetchData = async () => {
-        console.log(`https://api.spoonacular.com/food/ingredients/search?apiKey=${process.env.REACT_APP_API_KEY}&query=${input}/information?amount=1 `)
+        // console.log(`https://api.spoonacular.com/food/ingredients/search?apiKey=${process.env.REACT_APP_API_KEY}&query=${input}&addChildren=false`)
         const data  = await fetch(
-         `https://api.spoonacular.com/food/ingredients/search?apiKey=${process.env.REACT_APP_API_KEY}&query=${input} `);  
+         `https://api.spoonacular.com/food/ingredients/search?apiKey=${process.env.REACT_APP_API_KEY}&query=${input}&number=5 `);  
         const r = await data.json() 
         setIngredients(r.results);
         console.log("Got some ingredients " + JSON.stringify(r));
@@ -29,10 +30,9 @@ import './SearchBar.css';
       
     }, [input])
     
-    // const navigate = useNavigate(); 
     const submitHandler = (e) => {
         e.preventDefault();
-        //navigate('/searched/' + input)
+       
     }
 
     
@@ -45,17 +45,17 @@ import './SearchBar.css';
           onChange={(e) => setInput(e.target.value)} 
           type="text" value={input}/>
           </form>
-          <p>{ingredients?.length}</p><br/>
+          {/* <p>{ingredients?.length}</p><br/> */}
           
          
 
 <div className="search-boxes">
           {ingredients?.map((item) => {
             return(
-              <div key={item.id} className="search-squares">
-                <FaCarrot size={30}/>
-              <div className="search-square">{item.name}</div>
-          </div>            
+              <div key={item.id} className="search-squares" >
+                <Ingredient/> 
+               {/* <div className="search-square">{item.name}</div>   */}
+              </div>             
           )
           
     })}
