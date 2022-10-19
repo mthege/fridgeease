@@ -1,0 +1,65 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "name": "Ananas",
+      "image": "figs-fresh.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Banan",
+      "image": "fudge-isolated.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Citron",
+      "image": "hotdogs.png"
+    },
+    {
+      "id": 4,
+      "name": "Dadlar",
+      "image": "frisee.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Enbär",
+      "image": "frisee.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Falukorv",
+      "image": "frisee.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Gurka",
+      "image": "frisee.jpg"
+    }
+  ],
+  "myFoods": [
+    {
+      "id": 5,
+      "name": "Enbär"
+    },
+    {
+      "id": 2,
+      "name": "Banan"
+    },
+    {
+      "id": 7,
+      "name": "Gurka"
+    },
+    {
+      "id": 3,
+      "name": "Citron"
+    },
+    {
+      "id": 6,
+      "name": "Falukorv"
+    },
+    {
+      "id": 4,
+      "name": "Dadlar"
+    }
+  ]
+}

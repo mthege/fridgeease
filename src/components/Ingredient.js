@@ -1,73 +1,41 @@
-import React, {useState, useEffect} from 'react'; 
-import {FaCarrot} from 'react-icons/fa'
+// import useFetch from "../useFetch"
+import {useState} from 'react'
+const Ingredient =  ({foods, id, name}) => {
 
-function Ingredient(props) {
-  // const [showPosts, setShowPosts] = useState()
-  const apiUrl = `https://api.spoonacular.com/food/ingredients/${props.item}/information?apiKey=${process.env.REACT_APP_API_KEY}`;
+  // useFetch()
+  const [message, setMessage] = useState("")
 
-  let displayData
+  const handleSubmit = e => {
+    e.preventDefault();
 
-  // function pullJson(){
-  //   fetch(apiUrl)
-  //   .then(respone => respone.json())
-  //   .then( responseData =>{
-  //     displayData = responseData.map(function(element) {
-  //       return(
-          
-  //         <p key={element.id}>{element.name}</p>
-  //       )
-  //     })
-  //     setShowPosts(displayData)
-  //   })
-
-  // }
-
-  //   async function pullJson() {
-  //     const response = await fetch (apiUrl)
-  //     const responseData = await response.json()
-  //     displayData = responseData.map (function(element) {
-
-  //       return(
-  //         <div key={element.id} className="search-square">{element.name}</div>
-  //       )
-  //       }) 
-  //       setShowPosts(displayData)
-  //   }
-  // useEffect(() =>{
-  //   pullJson()
-  // }, [])
+    const requestOptions = {
+      method: "POST",
+      headers: { 'Accept': 'application/json', "Content-Type": "application/json" },
+      body: JSON.stringify({id: id, name: name})
+    };
+    fetch("http://localhost:8000/myFoods", requestOptions)
+      .then(response => response.json())
+      .then(res => console.log(res))
+      .then(setMessage(""))
+      .catch(e=> 'error');
+      
 
 
+};
 
-  const [ingredient, setIngredient] = useState(null); 
+  return(
+    <div>
+         <ul>
+           <button type="submit" onClick={handleSubmit}>
+            <div key={id}>{name}</div></button>
+        </ul>
 
-  
-    async function fetchData() {
-      const response  = await fetch(apiUrl) 
-      const responseData = await response.json() 
-      displayData = responseData.map(function(element) {
-
-        return(
-          <div>
-            return(
-              {ingredient.map((element)=> {
-              <div key={element.id} className="search-squares">
-              <FaCarrot size={30}/>
-              <div className="search-square">{element.name}</div>        
-            </div>
-
-              })}
-          
-          )
-          </div>
-        )
-      })
-      setIngredient(displayData)
-    }
-
-    useEffect(() => {
-      fetchData()
-  }, [])
-
+        {message && <div>{message}</div>}
+    </div>
+  )
 }
-  export default Ingredient
+
+export default Ingredient
+
+
+

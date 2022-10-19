@@ -1,17 +1,20 @@
 import React from 'react'
 import './Fridge.css'
 import SearchBar from '../../components/SearchBar/SearchBar';
-import Ingredients from '../../components/Ingredients'
+import Ingredient from '../../components/Ingredient'
 import Navbar from "../../components/Navbar/Navbar";
 import Topbar from '../../components/Topbar/Topbar'; 
 import FilterBar from '../../components/FilterBar/FilterBar';
+import MyFoods from '../../components/MyFoods/MyFoods';
+
 function Fridge() {
     return (
         <div>
             <Topbar/>
             <FilterBar/>
             <SearchBar/>
-            <Ingredients/>
+            <Ingredient/>
+            <MyFoods/>
             <Navbar/> 
         </div>
     )
