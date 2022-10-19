@@ -29,7 +29,7 @@
       }, 1000);
     }, [url])
 
-    return{ data, loading, error}
+    return{ data, setData, loading, setLoading, error, setError }
 
  }
 

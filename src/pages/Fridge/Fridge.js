@@ -13,7 +13,6 @@ function Fridge() {
             <Topbar/>
             <FilterBar/>
             <SearchBar/>
-            <Ingredient/>
             <MyFoods/>
             <Navbar/> 
         </div>
