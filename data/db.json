@@ -36,30 +36,5 @@
       "image": "frisee.jpg"
     }
   ],
-  "myFoods": [
-    {
-      "id": 5,
-      "name": "Enbär"
-    },
-    {
-      "id": 2,
-      "name": "Banan"
-    },
-    {
-      "id": 7,
-      "name": "Gurka"
-    },
-    {
-      "id": 3,
-      "name": "Citron"
-    },
-    {
-      "id": 6,
-      "name": "Falukorv"
-    },
-    {
-      "id": 4,
-      "name": "Dadlar"
-    }
-  ]
+  "myFoods": []
 }

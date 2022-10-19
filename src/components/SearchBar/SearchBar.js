@@ -5,7 +5,7 @@ import './SearchBar.css';
 import {GrClose, GrSearch} from 'react-icons/gr'
  
   function SearchBar() {
-    const URL = 'http://localhost:8000/foods/'
+    const URL = 'http://localhost:8001/foods/'
     const {data: foods, loading, error} = useFetch(URL)
 
     const [input, setInput] = useState(""); 
