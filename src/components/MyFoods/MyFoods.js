@@ -11,7 +11,7 @@ function MyFoods() {
 
 
 
-  function onDelete(id) {
+  function onDelete(id) {ç
     axios.delete(`${URL}/${id}`, {id: id})
         .then(res => {
             console.log(res)
