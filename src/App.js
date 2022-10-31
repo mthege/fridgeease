@@ -1,29 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Fridge from "./pages/Fridge/Fridge";
-import Recipes from './pages/Recipes/Recipes';
-import ShoppingList from "./pages/ShoppingList/ShoppingList";
-import MyPage from "./pages/MyPage/MyPage"; 
-import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup'
+import './App.css';
+import {MyFridge, Register, Reset, Login} from './pages/index';
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import PrivateRoute from './pages/auth/PrivateRoute';
+
 function App() {
-
-
-
   return (
-    <BrowserRouter>
     <div className="App">
-        <Routes>
-        <Route path ="/" element= {<Login/>}/>
-        <Route path ="/signup" element= {<Signup/>}/>
-        <Route path="/recipes" element= {<Recipes/>}/>
-        <Route path="/fridge" element= {<Fridge/>}/>
-        <Route path="/shoppinglist" element= {<ShoppingList/>}/>
-        <Route path="/mypage" element= {<MyPage/>}/>
-
-      </Routes> 
+      
+      <BrowserRouter>
+      <Routes>
+        <Route path="/myfridge" element={<PrivateRoute><MyFridge/></PrivateRoute>}/>
+        <Route path="/" element={<Login/>}/>                         
+        <Route path="/login" element={<Login/>}/>                         
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/reset" element={<Reset/>}/>
+        
        
+      </Routes>
+      </BrowserRouter>
+      
     </div>
-    </BrowserRouter>
   );
 }
 
