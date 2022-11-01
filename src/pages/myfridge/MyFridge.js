@@ -1,6 +1,7 @@
 // import React, { useEffect } from "react";
 import FilterBar from '../../components/FilterBar/FilterBar'
 import Navbar from '../../components/Navbar/Navbar'
+import SearchBar from '../../components/SearchBar/SearchBar';
 import Topbar from '../../components/Topbar/Topbar'
 // import Login from '../auth/Login';
 // import {LoggedIn, OnLogout} from '../auth/PrivateRoute';
@@ -26,6 +27,7 @@ const MyFridge = () => {
       
        <Topbar/>
         <FilterBar />
+        <SearchBar/>
         <Navbar/>
     </div>
   );

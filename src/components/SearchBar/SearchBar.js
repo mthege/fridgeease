@@ -1,106 +1,90 @@
 import { useState, useEffect } from 'react';
-import useFetch from '../../useFetch';
-import Ingredient from '../Ingredient';
 import './SearchBar.css';
+// import Loader from '../Loader/Loader'
+import { db } from '../../firebase/config';
+import { query, collection, onSnapshot } from "firebase/firestore";
 import {GrClose, GrSearch} from 'react-icons/gr'
-import axios from 'axios'
-
-  function SearchBar() {
-    ///- search function
-    /// - parent component to Ingredients
 
 
-    const URL = 'http://localhost:8001/foods/'
-    const {data: foods} = useFetch(URL)
 
+export const SearchBar = () => {
+  const [foods, setFoods] = useState([]);
+  const [input, setInput] = useState(""); 
+  const [filteredFoods, setFilteredFoods] = useState(foods); 
 
-    const [ingList, setIngList] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("")
-    const [input, setInput] = useState(""); 
-    const [filteredFoods, setFilteredFoods] = useState(foods); 
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setInput(searchWord);
+    console.log("APA: " + foods.length)
+    const updatedFoodsResult = foods.filter((value) => {
+      return value.foodType?.toLowerCase().includes(searchWord.toLowerCase());
+    });
 
-    const handleFilter = (event) => {
-      event.preventDefault(); 
-      const searchWord = event.target.value;
-      setInput(searchWord);
-      console.log("APA: " + foods.length)
-      const updatedFoodsResult = foods.filter((value) => {
-        return value.name.toLowerCase().includes(searchWord.toLowerCase());
+    if (searchWord === "") {
+      setFilteredFoods(foods);
+    } else {
+      setFilteredFoods(updatedFoodsResult);
+    }
+  };   
+
+  // Read todo from firebase
+  useEffect(() => {
+    const q = query(collection(db, 'foods'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let foodsArr = [];
+      querySnapshot.forEach((doc) => {
+        foodsArr.push({ ...doc.data(), id: doc.id });
       });
-  
-      if (searchWord === "") {
-        setFilteredFoods(foods);
-      } else {
-        setFilteredFoods(updatedFoodsResult);
-      }
-    };   
-
-    useEffect(() => {
-      if(loading) {
-        axios.get(URL)
-        .then(res => {
-          if (res && res.status !== 200) { // error coming back from server
-            setError('does this happen??' + res.status);
-          } 
-          else {
-            console.log(res)
-            setIngList(res.data);
-          }
-        })
-        .catch(error => {
-          if(error.status !== 304) {
-            setError('could not fetch the data for that resource: ' + error);
-          }
-        })
-        .finally(() => {
-          setLoading(false);
-        })
-      }
-    }, [loading])
+      setFoods(foodsArr);
+    });
+    return () => unsubscribe();
+  }, []);
 
 
+const clearInput = () => {
+  setFilteredFoods([]);
+  setInput("");
+};
 
-  const clearInput = () => {
-    setFilteredFoods([]);
-    setInput("");
-  };
-  
-      return ( 
-         <div className="searchbar">
-          { error && <div>{ error }</div> }
-          { loading && <div>Loading...</div> }
-          <div className= "search">
-            <input 
-            placeholder="Lägg till matvara" 
-            className="search-input" 
-            onChange={handleFilter} 
-            type="text" value={input}/>
-            
-            <div className="searchIcons">
-              {filteredFoods?.length === null ? (
+return (
+  <div className="search">
+    <div className="search-inputs">
+      <input 
+        placeholder="Lägg till matvara" 
+        className="search-input" 
+        onChange={handleFilter} 
+        type="text" value={input}/>
+        {/* <div className="search-icons">
+          {filteredFoods?.length === null ? (
                   <GrSearch />
                     ) : (
                   <GrClose id="clearBtn" onClick={clearInput} />
-                )}
-              </div>
-          </div>
-{/* 
-          renders searchlist when starting to write */}
-          {filteredFoods?.length !== null && (
-          <div className="search-results">
-            {filteredFoods?.slice(0, 15).map((item) => {
-            return(
-              <div key={item.id} className="search-result" >
-                {foods && <Ingredient id={item.id} name={item.name} />}
-               </div>             
-              );
-            })}
-          </div>
-        )}
+          )}
+          </div> */}
+    </div>
+
         
-      </div>
-    );  
-  }
+      <div className="search-result">
+        {filteredFoods.length !== 0 && (
+        <div className="data-result">
+          {filteredFoods.slice(0, 15).map((food) => {
+             
+            return (
+            <div key={food.id}>
+                <p>{food.foodType} </p>
+            </div>
+            ); 
+          }    
+        )}
+        </div>
+        )}
+        </div>
+    </div>
+  );
+}
+
+
+
+
 
 export default SearchBar;
