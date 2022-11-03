@@ -1,84 +1,142 @@
 import { useState, useEffect } from 'react';
 import './SearchBar.css';
 // import Loader from '../Loader/Loader'
-import { db } from '../../firebase/config';
-import { query, collection, onSnapshot } from "firebase/firestore";
 import {GrClose, GrSearch} from 'react-icons/gr'
-
+import {useFetchCollection} from '../../custom-hooks/useFetchCollection';
+import { useSelector, useDispatch } from "react-redux";
+import { SAVED_FOOD, selectFoods } from '../../redux/Reducer';
+import { useToCollection } from '../../custom-hooks/useSaveToCollection';
+import { db } from '../../firebase/config';
+import { addDoc, collection, collectionRef, serverTimestamp,  } from '@firebase/firestore';
+import MyFridge from '../myFridge/MyFridge';
 
 
 export const SearchBar = () => {
-  const [foods, setFoods] = useState([]);
+  // const [foods, setFoods] = useState([]);
   const [input, setInput] = useState(""); 
-  const [filteredFoods, setFilteredFoods] = useState(foods); 
+
+  const {savedData} = useToCollection("myFridge")
+
+  const {foodData, isLoading } = useFetchCollection("food")
+  // const {savedData, isLoading} = useToCollection("myFridge")
+  const [filteredFoods, setFilteredFoods] = useState(foodData); 
+
+  const dispatch = useDispatch();
+  const foodList = useSelector(selectFoods);
+
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setInput(searchWord);
-    console.log("APA: " + foods.length)
-    const updatedFoodsResult = foods.filter((value) => {
+    const updatedFoodsResult = foodData?.filter((value) => {
       return value.foodType?.toLowerCase().includes(searchWord.toLowerCase());
     });
 
     if (searchWord === "") {
-      setFilteredFoods(foods);
+      setFilteredFoods(foodData);
     } else {
       setFilteredFoods(updatedFoodsResult);
     }
   };   
 
-  // Read todo from firebase
-  useEffect(() => {
-    const q = query(collection(db, 'foods'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let foodsArr = [];
-      querySnapshot.forEach((doc) => {
-        foodsArr.push({ ...doc.data(), id: doc.id });
+
+  const clearInput = () => {
+    setFilteredFoods([]);
+    setInput("");
+  };
+
+  // useEffect(() => {
+  //   dispatch(
+  //     SAVED_FOOD({
+  //       foodList: foodData,
+  //     })
+  //   );
+  // }, [dispatch, foodData]);
+
+  
+
+    // const handleSave= async (e)=>{
+    // e.preventDefault();
+    // // getSavedCollection()
+    // await addDoc(collectionRef(db,'myFridge'),{
+    //   myFood: foodData.foodType,
+    // timestamp: serverTimestamp()
+    // })
+    // setInput('')
+    // };
+
+    async function handleSave(oneFood) {
+    try {
+      const docRef = await addDoc(collection(db, "myFridge"), {
+        myFood: oneFood.foodType,
+        timestamp: serverTimestamp()
+        
       });
-      setFoods(foodsArr);
-    });
-    return () => unsubscribe();
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }}
+
+  useEffect(() => {
+    handleSave();
   }, []);
 
+  
 
-const clearInput = () => {
-  setFilteredFoods([]);
-  setInput("");
-};
+  
+
 
 return (
   <div className="search">
-    <div className="search-inputs">
+    <div className="searchbar">
       <input 
         placeholder="Lägg till matvara" 
         className="search-input" 
         onChange={handleFilter} 
         type="text" value={input}/>
-        {/* <div className="search-icons">
+         <div className="search-icons">
           {filteredFoods?.length === null ? (
                   <GrSearch />
                     ) : (
                   <GrClose id="clearBtn" onClick={clearInput} />
           )}
-          </div> */}
+          </div> 
     </div>
-
         
-      <div className="search-result">
-        {filteredFoods.length !== 0 && (
+        {filteredFoods?.length !== 0 && (
         <div className="data-result">
-          {filteredFoods.slice(0, 15).map((food) => {
+          {filteredFoods?.slice(0, 15).map((oneFood) => {
              
             return (
-            <div key={food.id}>
-                <p>{food.foodType} </p>
+            <div className="search-item" key={oneFood.id}>
+                <p>{oneFood.foodType} </p>
+
+                <button className="search-button" onClick={() => handleSave(oneFood)}>
+                 Save 
+                </button>
+                {/* <button
+                onClick={() => {
+                dispatch(
+                  SAVED_FOOD({
+                     id: foodList
+              })
+            );
+          }}
+        >
+          {" "}
+         Save
+        </button> */}
             </div>
             ); 
           }    
         )}
         </div>
         )}
-        </div>
+        
+        {savedData && <MyFridge id={savedData.id} name={savedData.name} />}
+
+
+
     </div>
   );
 }

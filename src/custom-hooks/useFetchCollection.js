@@ -1,27 +1,27 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { db } from "../firebase/config";
 
-const useFetchCollection = (collectionName) => {
-  const [data, setData] = useState([]);
+export const useFetchCollection = (collectionName) => {
+  const [foodData, setFoodData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getCollection = () => {
     setIsLoading(true);
     try {
-      const docRef = collection(db, collectionName);
-      const q = query(docRef, orderBy("type"));
-      onSnapshot(q, (snapshot) => {
-        // console.log(snapshot.docs);
-        const allData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        // console.log(allData);
-        setData(allData);
+      const q = query(collection(db, 'foods'));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+       const allData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        foodType: doc.foodType,
+       ...doc.data(),
+       }));
+        console.log(allData);
+        setFoodData(allData);
         setIsLoading(false);
       });
+      return () => unsubscribe();
     } catch (error) {
       setIsLoading(false);
       toast.error(error.message);
@@ -30,9 +30,9 @@ const useFetchCollection = (collectionName) => {
 
   useEffect(() => {
     getCollection();
-  }, [db]);
+  }, []);
 
-  return { data, isLoading };
+  return { foodData, isLoading };
 };
 
 export default useFetchCollection;

@@ -2,9 +2,10 @@ import { useState } from "react";
 // import styles from "./auth.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
+import { Firestore } from "firebase/firestore";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +25,16 @@ const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        const userUid = user.uid;
+        // const email = user.email; // The email of the user.
+        // const displayName = user.displayName; // The display name of the user.
+
+         // set account  doc  
+        const account = {
+        useruid: userUid,
+        calendarEvents: []
+        }
+        Firestore().collection(db, 'accounts').doc(userUid).set(account);
         console.log(user);
         setIsLoading(false);
         toast.success("Registration Successful...");
