@@ -82,3 +82,9 @@ input:focus {
   
 }
 
+.search-button{
+  border: none;
+  background-color: white;
+  border-radius: 2em;
+
+}

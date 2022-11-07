@@ -108,25 +108,14 @@ return (
           {filteredFoods?.slice(0, 15).map((oneFood) => {
              
             return (
-            <div className="search-item" key={oneFood.id}>
+            <button className="search-button" onClick={() => handleSave(oneFood)}>
+              <div className="search-item" key={oneFood.id}>
                 <p>{oneFood.foodType} </p>
 
-                <button className="search-button" onClick={() => handleSave(oneFood)}>
-                 Save 
-                </button>
-                {/* <button
-                onClick={() => {
-                dispatch(
-                  SAVED_FOOD({
-                     id: foodList
-              })
-            );
-          }}
-        >
-          {" "}
-         Save
-        </button> */}
+             
+              
             </div>
+            </button>
             ); 
           }    
         )}
