@@ -15,6 +15,7 @@ export const useToCollection = (collectionName) => {
        const allData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         myFood: doc.myFood,
+        img: doc.img,
        ...doc.data(),
        }));
         console.log(allData);

@@ -1,29 +1,30 @@
+//State etc
 import { useState, useEffect } from 'react';
-import './SearchBar.css';
-// import Loader from '../Loader/Loader'
-import {GrClose, GrSearch} from 'react-icons/gr'
 import {useFetchCollection} from '../../custom-hooks/useFetchCollection';
-import { useSelector, useDispatch } from "react-redux";
-import { SAVED_FOOD, selectFoods } from '../../redux/Reducer';
 import { useToCollection } from '../../custom-hooks/useSaveToCollection';
+//Firebase
 import { db } from '../../firebase/config';
-import { addDoc, collection, collectionRef, serverTimestamp,  } from '@firebase/firestore';
+import { addDoc, collection, serverTimestamp } from '@firebase/firestore';
+//Icons
+import {GrClose, GrSearch} from 'react-icons/gr'
+//Style
+import './SearchBar.css';
+//Components
 import MyFridge from '../myFridge/MyFridge';
+// import Loader from '../Loader/Loader'
+//Redux
+// import { useSelector, useDispatch } from "react-redux";
+// import { SAVED_FOOD, selectFoods } from '../../redux/Reducer';
 
 
 export const SearchBar = () => {
-  // const [foods, setFoods] = useState([]);
   const [input, setInput] = useState(""); 
 
+  //Custom hooks
   const {savedData} = useToCollection("myFridge")
-
   const {foodData, isLoading } = useFetchCollection("food")
-  // const {savedData, isLoading} = useToCollection("myFridge")
+
   const [filteredFoods, setFilteredFoods] = useState(foodData); 
-
-  const dispatch = useDispatch();
-  const foodList = useSelector(selectFoods);
-
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -37,94 +38,79 @@ export const SearchBar = () => {
     } else {
       setFilteredFoods(updatedFoodsResult);
     }
-  };   
 
+  };   
 
   const clearInput = () => {
     setFilteredFoods([]);
     setInput("");
   };
 
-  // useEffect(() => {
-  //   dispatch(
-  //     SAVED_FOOD({
-  //       foodList: foodData,
-  //     })
-  //   );
-  // }, [dispatch, foodData]);
-
-  
-
-    // const handleSave= async (e)=>{
-    // e.preventDefault();
-    // // getSavedCollection()
-    // await addDoc(collectionRef(db,'myFridge'),{
-    //   myFood: foodData.foodType,
-    // timestamp: serverTimestamp()
-    // })
-    // setInput('')
-    // };
-
-    async function handleSave(oneFood) {
+  async function handleSave(oneFood) {
     try {
       const docRef = await addDoc(collection(db, "myFridge"), {
         myFood: oneFood.foodType,
+        img: oneFood.img,
         timestamp: serverTimestamp()
         
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
-      console.error("Error adding document: ", e);
-    }}
+      // console.error("Error adding document: ", e);
+    }
+  
+
+  }
 
   useEffect(() => {
     handleSave();
   }, []);
 
-  
-
-  
-
-
-return (
-  <div className="search">
-    <div className="searchbar">
-      <input 
-        placeholder="Lägg till matvara" 
-        className="search-input" 
-        onChange={handleFilter} 
-        type="text" value={input}/>
-         <div className="search-icons">
-          {filteredFoods?.length === null ? (
-                  <GrSearch />
-                    ) : (
-                  <GrClose id="clearBtn" onClick={clearInput} />
-          )}
-          </div> 
-    </div>
+ 
+  return (
+    <div className="search">
+      <div className="searchbar">
+       <input 
+          placeholder="Lägg till matvara" 
+          className="search-input" 
+          onChange={handleFilter} 
+          type="text" value={input}/>
+          <div className="search-icons">
+            {filteredFoods?.length === null ? (
+                    <GrSearch />
+                      ) : (
+                    <GrClose id="clearBtn" onClick={clearInput} />
+           )}
+            </div> 
+     </div>
         
         {filteredFoods?.length !== 0 && (
-        <div className="data-result">
-          {filteredFoods?.slice(0, 15).map((oneFood) => {
-             
-            return (
-            <button className="search-button" onClick={() => handleSave(oneFood)}>
-              <div className="search-item" key={oneFood.id}>
-                <p>{oneFood.foodType} </p>
+          <div className="data-result">
 
+            
+
+            
+            {filteredFoods?.slice(0, 15).map((oneFood) => {
+
+              // if(oneFood.id === savedData.id){
+              //   console.log("Dubletter")
+              // }
              
-              
-            </div>
-            </button>
-            ); 
-          }    
+              return (
+                <button className="search-button" onClick={() => handleSave(oneFood)}>
+                 <div className="search-item" key={oneFood.id}>
+                 <img className="food-img" src={oneFood.img} alt={oneFood.myFood}/>
+                 <p>{oneFood.foodType}</p>
+
+                 </div>
+                </button>
+              ); 
+            }    
         )}
-        </div>
+          </div>
         )}
         
         {savedData && <MyFridge id={savedData.id} name={savedData.name} />}
-
-
 
     </div>
   );
