@@ -16,6 +16,7 @@ export const useToCollection = (collectionName) => {
         id: doc.id,
         myFood: doc.myFood,
         img: doc.img,
+        desc: doc.desc,
        ...doc.data(),
        }));
         console.log(allData);

@@ -16,6 +16,7 @@ export const useFetchCollection = (collectionName) => {
         id: doc.id,
         foodType: doc.foodType,
         img: doc.img,
+        desc: doc.desc, 
        ...doc.data(),
        }));
         console.log(allData);

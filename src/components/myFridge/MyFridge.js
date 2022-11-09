@@ -41,8 +41,7 @@ function MyFridge() {
                 )}
 
             </div>
-            
-            {myFridge.map((food) => {           
+            {myFridge?.map((food) => {           
 
                 return(
                     <div className="item" key={food.id}>

@@ -12,15 +12,20 @@ const EditFood = ({ open, onClose, food }) => {
           e.stopPropagation();
         }}
         className='modalContainer'>       
-        <div className='modalRight'>
-          <p className='closeBtn' onClick={onClose}>
+        <div className='modal-top'>
+          
+          <div className="modal-content">
+          <img className="food-img" src={food.img} alt={food.myFood}/>
+          <p>{food.myFood}</p>
+          </div>
+            <p className='closeBtn' onClick={onClose}>
             X
           </p>
-          <div className="modal-content">
-          <p>{food.myFood}</p>
+        </div>
 
-          </div>
-   
+        <div className="modal-middle">
+        <h4>Description</h4>
+          <p>{food.desc}</p>
         </div>
       </div>
     </div>

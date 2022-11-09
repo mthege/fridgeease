@@ -51,8 +51,8 @@ export const SearchBar = () => {
       const docRef = await addDoc(collection(db, "myFridge"), {
         myFood: oneFood.foodType,
         img: oneFood.img,
-        timestamp: serverTimestamp()
-        
+        timestamp: serverTimestamp(),
+        desc: oneFood.desc, 
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -86,21 +86,17 @@ export const SearchBar = () => {
         
         {filteredFoods?.length !== 0 && (
           <div className="data-result">
-
-            
-
-            
             {filteredFoods?.slice(0, 15).map((oneFood) => {
 
-              // if(oneFood.id === savedData.id){
-              //   console.log("Dubletter")
-              // }
+              if(oneFood.id === savedData.id){
+                console.log("Dubletter")
+              }
              
               return (
                 <button className="search-button" onClick={() => handleSave(oneFood)}>
                  <div className="search-item" key={oneFood.id}>
-                 <img className="food-img" src={oneFood.img} alt={oneFood.myFood}/>
                  <p>{oneFood.foodType}</p>
+                 <img className="food-img" src={oneFood.img} alt={oneFood.myFood}/>
 
                  </div>
                 </button>
