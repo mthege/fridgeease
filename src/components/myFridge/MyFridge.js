@@ -29,7 +29,16 @@ function MyFridge() {
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "myFridge", id));
     }
+
+    const calcExpiry = (food) =>{
+        console.log("TS " + food.timestamp)
+        const expiryDays= Math.round((food.timestamp - Date.now())/(1000*60*60*24))
+        return expiryDays
+    }
+
+ 
     
+
     return (
         <div className="my-fridge">
             <div className="my-fridge-intro">
@@ -44,10 +53,11 @@ function MyFridge() {
             {myFridge?.map((food) => {           
 
                 return(
-                    <div className="item" key={food.id}>
+                    <div className="item" key={"item_" + food.id}>
                         <div className="item-left">
                         <img className="food-img" src={food.img} alt={food.myFood}/>
                         <p>{food.myFood}</p>
+                        <p>{calcExpiry(food)}</p>
                         </div>
                         <div className="btn-btns">
                             <button onClick={() => {setSelectedFood(food)

@@ -22,7 +22,7 @@ export const SearchBar = () => {
 
   //Custom hooks
   const {savedData} = useToCollection("myFridge")
-  const {foodData, isLoading } = useFetchCollection("food")
+  const {foodData } = useFetchCollection("food")
 
   const [filteredFoods, setFilteredFoods] = useState(foodData); 
 
@@ -51,8 +51,10 @@ export const SearchBar = () => {
       const docRef = await addDoc(collection(db, "myFridge"), {
         myFood: oneFood.foodType,
         img: oneFood.img,
-        timestamp: serverTimestamp(),
+       // timestamp: serverTimestamp(),
+        timestamp: Date.now() + (1000*60*60*24*oneFood.expirationDays),
         desc: oneFood.desc, 
+        klimatKlass: oneFood.klimatKlass, 
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -88,13 +90,10 @@ export const SearchBar = () => {
           <div className="data-result">
             {filteredFoods?.slice(0, 15).map((oneFood) => {
 
-              if(oneFood.id === savedData.id){
-                console.log("Dubletter")
-              }
-             
+                         
               return (
                 <button className="search-button" onClick={() => handleSave(oneFood)}>
-                 <div className="search-item" key={oneFood.id}>
+                 <div className="search-item" key={"searchResult_" + oneFood.id}>
                  <p>{oneFood.foodType}</p>
                  <img className="food-img" src={oneFood.img} alt={oneFood.myFood}/>
 

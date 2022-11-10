@@ -13,10 +13,12 @@ export const useToCollection = (collectionName) => {
       const q = query(collection(db, 'myFridge'));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
        const allData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
+        id: doc.id, 
         myFood: doc.myFood,
         img: doc.img,
         desc: doc.desc,
+        klimatKlass: doc.klimatKlass, 
+
        ...doc.data(),
        }));
         console.log(allData);

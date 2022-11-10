@@ -26,6 +26,8 @@ const EditFood = ({ open, onClose, food }) => {
         <div className="modal-middle">
         <h4>Description</h4>
           <p>{food.desc}</p>
+          <p>Klimatklass</p>
+          <p>{food.klimatKlass}</p>
         </div>
       </div>
     </div>
