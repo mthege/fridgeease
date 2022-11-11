@@ -100,6 +100,40 @@
   font-size: 1.5rem;
 }
 
+.klimat-div{
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(222, 216, 216);
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  padding-left: 5px;
+  border-radius: 10px;
+  margin: 10px 0; 
+}
+.klimat-div img{
+  height: 3rem;
+  border-radius: 10px;
+}
+
+.expiry-div-modal{
+  width: 4.2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(205, 13, 13);    
+  margin: 10px;
+  padding: 10px;
+}
+
+.expiry-div-modal p{
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+}
+
 
 
 @media screen and (max-width: 500px) {

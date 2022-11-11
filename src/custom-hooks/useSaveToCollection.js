@@ -18,6 +18,7 @@ export const useToCollection = (collectionName) => {
         img: doc.img,
         desc: doc.desc,
         klimatKlass: doc.klimatKlass, 
+        klimatKlassImg: doc.klimatKlassImg,
 
        ...doc.data(),
        }));

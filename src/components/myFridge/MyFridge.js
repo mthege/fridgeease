@@ -30,12 +30,20 @@ function MyFridge() {
         await deleteDoc(doc(db, "myFridge", id));
     }
 
-    const calcExpiry = (food) =>{
+        const calcExpiry = (food) =>{
         console.log("TS " + food.timestamp)
         const expiryDays= Math.round((food.timestamp - Date.now())/(1000*60*60*24))
         return expiryDays
     }
+        // const expiryDaysColor= Math.round((food.timestamp - Date.now())/(1000*60*60*24))
 
+    // const countDownColor = (food) => {
+    //     const colorDay = Math.round((food.timestamp - Date.now())/(1000*60*60*24));
+
+    //     if(colorDay => 3){
+
+    //     }
+    // }
  
     
 
@@ -50,15 +58,22 @@ function MyFridge() {
                 )}
 
             </div>
-            {myFridge?.map((food) => {           
+
+
+
+
+            {myFridge?.sort((a, b) =>  a.timestamp - b.timestamp).map((food) => {           
 
                 return(
                     <div className="item" key={"item_" + food.id}>
                         <div className="item-left">
                         <img className="food-img" src={food.img} alt={food.myFood}/>
                         <p>{food.myFood}</p>
-                        <p>{calcExpiry(food)}</p>
+                        
                         </div>
+
+                            <span className={`expiration ${calcExpiry(food) < 7 ? 'warning' : 'light-warning' }`}>{calcExpiry(food)+ " dagar"}</span>
+                        {/* <p>{calcExpiry(food)+ " dagar"}  </p> */}
                         <div className="btn-btns">
                             <button onClick={() => {setSelectedFood(food)
                                 setOpenModal(true)}} className='modalButton' ><BiPencil size={20}/></button> 

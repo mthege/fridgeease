@@ -4,7 +4,7 @@ import {useFetchCollection} from '../../custom-hooks/useFetchCollection';
 import { useToCollection } from '../../custom-hooks/useSaveToCollection';
 //Firebase
 import { db } from '../../firebase/config';
-import { addDoc, collection, serverTimestamp } from '@firebase/firestore';
+import { addDoc, collection } from '@firebase/firestore';
 //Icons
 import {GrClose, GrSearch} from 'react-icons/gr'
 //Style
@@ -55,6 +55,7 @@ export const SearchBar = () => {
         timestamp: Date.now() + (1000*60*60*24*oneFood.expirationDays),
         desc: oneFood.desc, 
         klimatKlass: oneFood.klimatKlass, 
+        klimatKlassImg: oneFood.klimatKlassImg,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -79,9 +80,9 @@ export const SearchBar = () => {
           type="text" value={input}/>
           <div className="search-icons">
             {filteredFoods?.length === null ? (
-                    <GrSearch />
+                    <GrSearch id="searchBtn" />
                       ) : (
-                    <GrClose id="clearBtn" onClick={clearInput} />
+                    <GrClose id="clearBtn" style={{paddingRight: '15px'}} onClick={clearInput} />
            )}
             </div> 
      </div>
