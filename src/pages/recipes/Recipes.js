@@ -4,6 +4,9 @@ import Recipe from '../../components/Recipe/Recipe';
 import { v4 as uuidv4 } from "uuid";
 import Alert from '../../components/Alert/Alert';
 import './Recipes.css'
+import Topbar from '../../components/Topbar/Topbar';
+import Navbar from '../../components/Navbar/Navbar';
+
 const Recipes = () => {
     const [query, setQuery] = useState("");
     const [recipes, setRecipes] = useState([]);
@@ -41,9 +44,9 @@ const Recipes = () => {
     };
     
     return (
-    
+      <>
+      <Topbar/>
         <div className="App">
-        <h1>Food Searching App</h1>
         <form onSubmit={onSubmit} className="search-form">
           {alert !== "" && <Alert alert={alert} />}
           <input
@@ -61,6 +64,8 @@ const Recipes = () => {
             recipes.map(recipe => <Recipe key={uuidv4()} recipe={recipe} />)}
         </div>
       </div>
+      <Navbar/>
+      </>
     );
     
 }
