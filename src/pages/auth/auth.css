@@ -1,69 +1,68 @@
-.auth {
-  min-height: 80vh;
+.styles-auth{
+  font-family: 'Cabin', sans-serif;
+
+
+}
+
+.form{
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }
+
+form input {
+  width: 75vw; 
+  border: 2px solid #000;
+  border-radius: 2em;
+  overflow: hidden;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row nowrap;
+  margin: 10px;
+  padding: 10px;
+}
+
+form{
   display: flex;
   justify-content: center;
   align-items: center;
+flex-direction: column;
 }
-  .img {
-    animation: slide-down 0.5s ease;
-  }
 
-  .form {
-    width: 35rem;
-    padding: 1.5rem;
-    animation: slide-up 0.5s ease;
-  }
-    h2 {
-      color: var(--color-danger);
-      text-align: center;
-    }
-    form {
-        display: block;
-        font-size: 1.6rem;
-        font-weight: 300;
-        padding: 1rem;
-        margin: 1rem auto;
-        width: 100%;
-        border: 1px solid #777;
-        border-radius: 3px;
-        outline: none;
-      }
-      .links {
-        display: flex;
-        justify-content: space-between;
-        margin: 5px 0;
-      }
+.login-button{
+  width: 80vw;
+  font-size: 1.2rem;
+  border-radius: 2em;
+  padding: 10px;
+  margin: 1.5rem; 
+  background-color: white;
+}
 
-      p {
-        text-align: center;
-        margin: 1rem;
-      }
-    
-    .register {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1rem;
-    }
-  
-/* 
-  @keyframes slide-up {
-    0% {
-      transform: translateY(-5rem);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  @keyframes slide-down {
-    0% {
-      transform: translateY(5rem);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-} */
+.auth-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-google{
+  width: 80vw;
+  font-size: 1.2rem;
+  border-radius: 2em;
+  padding: 10px;
+  margin: 1.5rem; 
+  background-color: white;
+}
+
+.auth-register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 @media screen and (max-width: 700px) {
   .img {

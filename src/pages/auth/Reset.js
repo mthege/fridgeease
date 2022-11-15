@@ -5,6 +5,7 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../../firebase/config'
 import { toast } from "react-toastify";
 import Loader from '../../components/Loader/Loader'
+import Topbar from '../../components/Topbar/Topbar';
 
 function Reset() {
     const [email, setEmail] = useState("")
@@ -29,7 +30,9 @@ function Reset() {
     return (
         <>
         {isLoading && <Loader/>}
-        <section className="auth-style">
+        <section className="styles-auth">
+        <Topbar/>
+        <div className="form">
                     <h2>Reset Password</h2>
                     <form onSubmit={resetPassword}>
                         <input 
@@ -50,7 +53,7 @@ function Reset() {
                             </p>
                         </div>  
                     </form>  
-                   
+                  </div> 
 
         </section>
         </>

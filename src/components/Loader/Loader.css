@@ -1,14 +1,23 @@
-.wrapper {
-    position: fixed;
+.loader-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  /* position: fixed; */
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+  .loader {
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; 
+    left: 50%; 
     z-index: 9;
-  }
-  
-  .loader {
-    position: fixed;
-    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;

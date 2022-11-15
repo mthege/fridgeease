@@ -11,7 +11,7 @@ import {GrClose, GrSearch} from 'react-icons/gr'
 import './SearchBar.css';
 //Components
 import MyFridge from '../myFridge/MyFridge';
-// import Loader from '../Loader/Loader'
+import Loader from '../Loader/Loader'
 //Redux
 // import { useSelector, useDispatch } from "react-redux";
 // import { SAVED_FOOD, selectFoods } from '../../redux/Reducer';
@@ -22,7 +22,7 @@ export const SearchBar = () => {
 
   //Custom hooks
   const {savedData} = useToCollection("myFridge")
-  const {foodData } = useFetchCollection("food")
+  const {foodData, isLoading} = useFetchCollection("food")
 
   const [filteredFoods, setFilteredFoods] = useState(foodData); 
 
@@ -62,15 +62,15 @@ export const SearchBar = () => {
       // console.error("Error adding document: ", e);
     }
   
-
   }
 
   useEffect(() => {
     handleSave();
   }, []);
-
  
   return (
+    <>
+    {isLoading && <Loader />}
     <div className="search">
       <div className="searchbar">
        <input 
@@ -109,7 +109,9 @@ export const SearchBar = () => {
         {savedData && <MyFridge id={savedData.id} name={savedData.name} />}
 
     </div>
-  );
+ </>  
+ );
+ 
 }
 
 

@@ -9,6 +9,7 @@ import { GrClose } from 'react-icons/gr';
 import { BiPencil } from 'react-icons/bi';
 //Components
 import EditFood from '../editFood/EditFood';
+import Loader from '../Loader/Loader';
 //Style
 import '../editFood/EditFood.css'
 import './MyFridge.css'
@@ -18,7 +19,7 @@ function MyFridge() {
     //Modal state
     const [openModal, setOpenModal] = useState(false);
     //Data
-    const {savedData} = useToCollection("myFridge")
+    const {savedData, isLoading} = useToCollection("myFridge")
     const [selectedFood, setSelectedFood] = useState(savedData[0])
     const [myFridge, setMyFridge] = useState(savedData)
 
@@ -35,21 +36,14 @@ function MyFridge() {
         const expiryDays= Math.round((food.timestamp - Date.now())/(1000*60*60*24))
         return expiryDays
     }
-        // const expiryDaysColor= Math.round((food.timestamp - Date.now())/(1000*60*60*24))
-
-    // const countDownColor = (food) => {
-    //     const colorDay = Math.round((food.timestamp - Date.now())/(1000*60*60*24));
-
-    //     if(colorDay => 3){
-
-    //     }
-    // }
- 
-    
+     
 
     return (
+    <>
+        
         <div className="my-fridge">
             <div className="my-fridge-intro">
+              {isLoading && <Loader />}
               {myFridge.length === 0 && (
                     <p>Ditt kylskåp är tomt, lägg till matvaror för 
                         att se vilka matvaror som behöver ätas upp snart och 
@@ -64,7 +58,8 @@ function MyFridge() {
 
             {myFridge?.sort((a, b) =>  a.timestamp - b.timestamp).map((food) => {           
 
-                return(
+                return( 
+
                     <div className="item" key={"item_" + food.id}>
                         <div className="item-left">
                         <img className="food-img" src={food.img} alt={food.myFood}/>
@@ -83,13 +78,13 @@ function MyFridge() {
                         <EditFood className="modal" open={openModal} food={selectedFood} onClose={() => setOpenModal(false)}/>
                               
                     </div>
-                    
+                   
     )
     
 })}
             
 
-    </div>
+    </div> </>
 )
 }
 

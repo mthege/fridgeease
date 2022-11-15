@@ -1,0 +1,12 @@
+.recipes{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-family: 'Cabin', sans-serif;
+    justify-content: space-between;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin: 2rem;
+}

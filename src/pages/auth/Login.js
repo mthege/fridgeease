@@ -6,7 +6,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 import Loader from '../../components/Loader/Loader'
-
+import './auth.css';
+import Topbar from '../../components/Topbar/Topbar';
 function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -31,15 +32,15 @@ function Login() {
         setIsLoading(false);
         });
 
-
     }
 
     return (
         <>
         {isLoading && <Loader/>}
         <section className="styles-auth">
-                <div className="auth-form">
-                    <h2>Login</h2>
+        <Topbar/>
+                <div className="form">
+                    <h2>Logga in</h2>
                     
                     <form onSubmit={loginUser}>
                         <input 
@@ -54,13 +55,13 @@ function Login() {
                         required                        
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}/>
-                        <button className="--btn --btn-primary --btn-block">Login</button>
+                        <button className="login-button">Login</button>
                         <div className="auth-link">
                             <Link to="/reset">Reset Password</Link>
-                        </div>  
-                        <p>-- or --</p>                      
+                         
+                        <p>-- or --</p>   </div>                    
                     </form>
-                    <button type="submit" className="--btn --btn-danger --btn-block">
+                    <button type="submit" className="login-google">
                         <FaGoogle color="#fff"/>
                         Login with Google</button>
                         <span className="auth-register">

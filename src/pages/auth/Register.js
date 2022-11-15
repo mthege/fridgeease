@@ -6,6 +6,7 @@ import { auth, db } from "../../firebase/config";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import { Firestore } from "firebase/firestore";
+import Topbar from "../../components/Topbar/Topbar";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -50,7 +51,8 @@ const Register = () => {
     <>
       {isLoading && <Loader />}
       <section className="styles-auth">
-          <div className="auth-form">
+        <Topbar/>
+          <div className="form">
             <h2>Register</h2>
 
             <form onSubmit={registerUser}>
@@ -75,7 +77,7 @@ const Register = () => {
                 value={cPassword}
                 onChange={(e) => setCPassword(e.target.value)}
               />
-              <button type="submit" className="--btn --btn-primary --btn-block">
+              <button type="submit" className="login-button">
                 Register
               </button>
             </form>
