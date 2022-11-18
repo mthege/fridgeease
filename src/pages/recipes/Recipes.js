@@ -6,6 +6,8 @@ import Alert from '../../components/Alert/Alert';
 import './Recipes.css'
 import Topbar from '../../components/Topbar/Topbar';
 import Navbar from '../../components/Navbar/Navbar';
+import { GrClose } from 'react-icons/gr';
+
 
 const Recipes = () => {
     const [query, setQuery] = useState("");
@@ -42,11 +44,17 @@ const Recipes = () => {
         e.preventDefault();
         getData()
     };
+
+    const clearInput = () => {
+      setRecipes([]);
+      setQuery("");
+    };
     
     return (
       <>
       <Topbar/>
         <div className="App">
+          <div className="recipe-search">
         <form onSubmit={onSubmit} className="search-form">
           {alert !== "" && <Alert alert={alert} />}
           <input
@@ -56,9 +64,17 @@ const Recipes = () => {
             value={query}
             autoComplete="off"
             placeholder="Search Food"
-          />
-          <input type="submit" value="Search" />
-        </form>
+          />  
+          <input className="search-btn" type="submit" value="Search" />   
+
+          <div className="clear-search"> Clear 
+          <GrClose className="clearBtn" id="clearBtn" onClick={clearInput} />
+          </div>
+         </form>  
+         </div>
+          
+          
+        
         <div className="recipes">
           {recipes !== [] &&
             recipes.map(recipe => <Recipe key={uuidv4()} recipe={recipe} />)}
