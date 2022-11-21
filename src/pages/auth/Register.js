@@ -47,6 +47,10 @@ const Register = () => {
       });
   };
 
+  const navigateLogin = () => {
+    navigate('/login');
+  }
+
   return (
     <>
       {isLoading && <Loader />}
@@ -77,7 +81,7 @@ const Register = () => {
                 value={cPassword}
                 onChange={(e) => setCPassword(e.target.value)}
               />
-              <button type="submit" className="login-button">
+              <button onClick={navigateLogin} type="submit" className="login-button">
                 Register
               </button>
             </form>

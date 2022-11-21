@@ -14,6 +14,13 @@ const Recipe = ({ recipe }) => {
   const {savedData, isLoading} = useToCollection("myFridge")
   const [sameFood, setSameFood] = useState(savedData[0])
   
+const exsistingFoods = () => {
+  if(sameFood === ingredients){
+    return console.log("true")
+  }
+}
+
+
   return (
 <>
     {isLoading && <Loader />}
@@ -32,8 +39,8 @@ const Recipe = ({ recipe }) => {
         <div className="excisting-foods">
             <h4>Du har:</h4>
             <div className="excisting-foods-p">
-            <p>Mjölk</p>
-            <p>Morot</p>
+            <p>{exsistingFoods}</p>
+            
             </div>
 
             </div>

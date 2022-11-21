@@ -1,5 +1,5 @@
 import './App.css';
-import {MyFridge, Register, Reset, Login, Recipes} from './pages/index';
+import {MyFridge, Register, Reset, Login, Recipes, ShoppingList} from './pages/index';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import PrivateRoute from './pages/auth/PrivateRoute';
 
@@ -15,6 +15,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/reset" element={<Reset/>}/>
         <Route path="/recipes" element={<Recipes/>}/>
+        <Route path="/shoppinglist" element={<ShoppingList/>}/>
        
       </Routes>
       </BrowserRouter>

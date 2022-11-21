@@ -55,23 +55,21 @@ const Recipes = () => {
       <Topbar/>
         <div className="App">
           <div className="recipe-search">
-        <form onSubmit={onSubmit} className="search-form">
-          {alert !== "" && <Alert alert={alert} />}
-          <input
-            type="text"
-            name="query"
-            onChange={onChange}
-            value={query}
-            autoComplete="off"
-            placeholder="Search Food"
-          />  
-          <input className="search-btn" type="submit" value="Search" />   
+            <form onSubmit={onSubmit} className="search-form">
+              <input
+                type="text"
+                name="query"
+                onChange={onChange}
+                value={query}
+                autoComplete="off"
+                placeholder="Search Food"
+              />  
+              <input className="search-btn" type="submit" value="Search" />   
 
-          <div className="clear-search"> Clear 
-          <GrClose className="clearBtn" id="clearBtn" onClick={clearInput} />
-          </div>
-         </form>  
+         </form>                
+
          </div>
+         <input className="clear-btn" type="submit" value="Clear"/>
           
           
         

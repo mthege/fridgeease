@@ -43,7 +43,7 @@ function MyFridge() {
         
         <div className="my-fridge">
             <div className="my-fridge-intro">
-              {isLoading && <Loader />}
+              {/* {isLoading && <Loader />} */}
               {myFridge.length === 0 && (
                     <p>Ditt kylskåp är tomt, lägg till matvaror för 
                         att se vilka matvaror som behöver ätas upp snart och 
