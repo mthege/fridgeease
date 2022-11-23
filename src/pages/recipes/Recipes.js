@@ -2,12 +2,10 @@ import React, {useState} from 'react'
 import axios from "axios";
 import Recipe from '../../components/Recipe/Recipe';
 import { v4 as uuidv4 } from "uuid";
-import Alert from '../../components/Alert/Alert';
 import './Recipes.css'
 import Topbar from '../../components/Topbar/Topbar';
 import Navbar from '../../components/Navbar/Navbar';
-import { GrClose } from 'react-icons/gr';
-
+import NavbarWider from '../../NavbarWider/NavbarWider';
 
 const Recipes = () => {
     const [query, setQuery] = useState("");
@@ -35,28 +33,22 @@ const Recipes = () => {
           setAlert("Please fill the form");
         }
       };
-
-   
-
+      
       const onChange = e => setQuery(e.target.value);
 
       const onSubmit = e => {
         e.preventDefault();
         getData()
-    };
-
-    const clearInput = () => {
-      setRecipes([]);
-      setQuery("");
-    };
-    
+    };   
     return (
       <>
       <Topbar/>
+      <NavbarWider/>
         <div className="App">
           <div className="recipe-search">
             <form onSubmit={onSubmit} className="search-form">
               <input
+                className="search-input-recipe"
                 type="text"
                 name="query"
                 onChange={onChange}
@@ -65,14 +57,19 @@ const Recipes = () => {
                 placeholder="Search Food"
               />  
               <input className="search-btn" type="submit" value="Search" />   
-
-         </form>                
-
+              <input className="search-btn" type="submit" value="Clear"/>
+            </form>                
          </div>
-         <input className="clear-btn" type="submit" value="Clear"/>
-          
-          
-        
+         
+        <div className="recipes-intro-container">
+          <div className="recipes-intro">
+              {recipes.length === 0 && (
+                    <p>Sök recept och matcha med de råvaror du har i kylskåpet
+                    </p>
+                )}
+
+            </div>
+          </div>
         <div className="recipes">
           {recipes !== [] &&
             recipes.map(recipe => <Recipe key={uuidv4()} recipe={recipe} />)}

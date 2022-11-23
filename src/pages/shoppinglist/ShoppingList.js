@@ -3,6 +3,7 @@ import './ShoppingList.css';
 import { BsCircle, BsPlusLg, BsCheckCircle, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import Topbar from '../../components/Topbar/Topbar';
 import Navbar from '../../components/Navbar/Navbar';
+import NavbarWider from '../../NavbarWider/NavbarWider';
 
 const ShoppingList = () => {
 	const [items, setItems] = useState([]);
@@ -63,6 +64,7 @@ const ShoppingList = () => {
 	return (
 		<> 
 		<Topbar/>
+		<NavbarWider/>
 		<div className='shopping-list-background'>
 			<div className='main-container'>
 				<div className='add-item-box'>

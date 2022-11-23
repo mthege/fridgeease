@@ -76,3 +76,16 @@ flex-direction: column;
     display: none;
   }
 }
+
+
+@media screen and (min-width: 700px) {
+  .input-form {
+    width: 400px;
+  }
+  .login-button{
+    width: 20vw; 
+  }
+  .login-google{
+    width: 20vw; 
+  }
+}

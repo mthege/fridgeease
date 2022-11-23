@@ -44,12 +44,14 @@ function Login() {
                     
                     <form onSubmit={loginUser}>
                         <input 
+                        className="input-form"
                         type="text" 
                         placeholder="Email" 
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}/>
                         <input 
+                        className="input-form"
                         type="password" 
                         placeholder="Password" 
                         required                        

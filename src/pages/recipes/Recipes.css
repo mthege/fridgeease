@@ -1,3 +1,12 @@
+.recipe-search{
+    width: 100vw;
+}
+.search-input-recipe{
+    display: flex;
+    width: 18rem;
+    align-items: flex-end;
+}
+
 .recipes{
     display: flex;
     align-items: center;
@@ -13,20 +22,27 @@
 
 .search-form{
     margin: 0;
-    width: 100vw;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
 }
-
-
 .clear-btn{
     padding: 5px;
-
 }
-
 .search-btn{
-    width: 5rem;
-
-    
+    width: 5rem; 
+    box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 35%);
+}
+.recipes-intro-container{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.recipes-intro{
+    text-align: center;
+    height: 15rem;
+    width: 15rem;
+    font-weight: 800;
+    font-size: 1.2rem;
 }

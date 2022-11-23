@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import PrivateRoute from './pages/auth/PrivateRoute';
 
 function App() {
+
   return (
     <div className="App">
       
